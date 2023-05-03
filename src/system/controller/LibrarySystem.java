@@ -3,6 +3,7 @@ package system.controller;
 import javax.swing.*;
 
 import view.LoginDialog;
+import view.SearchBook;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,10 +11,11 @@ import java.awt.event.ActionListener;
 
 public class LibrarySystem extends JFrame {
 	private boolean isLoginSuccess = false;
-	private JButton requestButton; // "도서 요청" 버튼
-	private JButton rentButton; // "도서 요청" 버튼
-	private JButton reserveButton; // "도서 요청" 버튼
-	private JButton loginButton; // "도서 요청" 버튼
+	private JButton searchButton; 		// "도서 검색" 버튼
+	private JButton requestButton; 		// "도서 요청" 버튼
+	private JButton rentButton; 		// "도서 빌림" 버튼
+	private JButton reserveButton;		// "도서 예약" 버튼
+	private JButton loginButton; 		// "로그인" 버튼
 
     public LibrarySystem() {
         // 윈도우 설정
@@ -42,7 +44,7 @@ public class LibrarySystem extends JFrame {
         northPanel.add(loginPanel, BorderLayout.EAST);
         add(northPanel, BorderLayout.NORTH);
         
-     // ActionListener 추가
+        // login dialog 연
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,7 +59,7 @@ public class LibrarySystem extends JFrame {
 
         // 메뉴 버튼 추가
         JPanel menuButtonPanel = new JPanel(new GridLayout(1, 5));
-        JButton searchButton = new JButton("도서 검색");
+        this.searchButton = new JButton("도서 검색");
         searchButton.setPreferredSize(new Dimension(200, 50)); // JButton 크기 설정
         this.requestButton = new JButton("도서 요청");
         requestButton.setPreferredSize(new Dimension(200, 50)); // JButton 크기 설정
@@ -74,6 +76,21 @@ public class LibrarySystem extends JFrame {
         menuButtonPanel.add(reserveButton);
         menuButtonPanel.add(returnButton);
         add(menuButtonPanel, BorderLayout.CENTER);
+        
+        // 책 검색 페이지 연
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // SearchBookPanel 생성
+                SearchBook searchPanel = new SearchBook();
+                // 기존 창의 컨텐트 팬을 SearchBookPanel로 교체합니다.
+                setContentPane(searchPanel);
+                // 기존 창을 다시 그리도록 합니다.
+                revalidate();
+                repaint();
+            }
+        });
+
         
         // updateMenuButton 호출
         updateMenuButton();
